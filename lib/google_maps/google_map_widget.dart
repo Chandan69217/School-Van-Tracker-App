@@ -2,9 +2,11 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:school_route/service/location_service.dart';
+import 'package:school_route/utilities/color_theme.dart';
 
 
 class GoogleMapWidget extends StatefulWidget {
@@ -14,18 +16,22 @@ class GoogleMapWidget extends StatefulWidget {
   State<GoogleMapWidget> createState() => MapState();
 }
 
+
+
 class MapState extends State<GoogleMapWidget> {
   late GoogleMapController _controller;
   Set<Marker> _marker = Set();
 
-  late Position position;
+  Position? position;
+  Stream<Position>? positionStream;
   double _longitude = 84.6606187;
   double _latitude = 24.977703 ;
 
   @override
   void initState() {
     super.initState();
-    getPosition();
+   // getCurrentLocation();
+    getCurrentLocationStream();
     addMarker(_latitude,_longitude);
   }
 
@@ -38,30 +44,53 @@ class MapState extends State<GoogleMapWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return GoogleMap(
-        mapType: MapType.normal,
-        initialCameraPosition: CameraPosition(
-            target: LatLng(_latitude, _longitude),
-        zoom: 14),
-        markers: _marker,
-        onMapCreated: (GoogleMapController controller) {
-          _controller = controller;
-        },
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        CircularProgressIndicator(value: 0.5,color: ColorTheme.yellow.withOpacity(0.7), semanticsLabel: 'Loading Maps ',),
+        GoogleMap(
+          mapType: MapType.normal,
+          initialCameraPosition: CameraPosition(
+              target: LatLng(_latitude, _longitude),
+          zoom: 14),
+          markers: _marker,
+          onMapCreated: (GoogleMapController controller) {
+            _controller = controller;
+          },
+      ),]
     );
   }
 
-  void getPosition() async {
+  void getCurrentLocation() async {
     position = await LocationService.getCurrentLocation();
     setState(() {
-      _latitude = position.latitude;
-      _longitude = position.longitude;
+      _latitude = position!.latitude;
+      _longitude = position!.longitude;
       _controller.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(target: LatLng(_latitude,_longitude),zoom: 16)));
       addMarker(_latitude, _longitude);
     });
   }
 
   void addMarker(double latitude, double longitude) {
-    _marker.add(Marker(markerId: MarkerId('Your Location'),icon: BitmapDescriptor.defaultMarker,position: LatLng(latitude, longitude)));
+    _marker.add(Marker(
+        markerId: MarkerId('Your Location'),
+        icon: BitmapDescriptor.defaultMarker,
+        position: LatLng(latitude, longitude),
+
+    ));
+  }
+
+  void getCurrentLocationStream() async{
+    positionStream = await LocationService.getCurrentLocationStream();
+    positionStream!.listen((Position _position){
+      position = _position;
+      setState(() {
+        _latitude = position!.latitude;
+        _longitude = position!.longitude;
+        _controller.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(target: LatLng(_latitude,_longitude),zoom: 16)));
+        addMarker(_latitude, _longitude);
+      });
+    });
   }
 
 }
