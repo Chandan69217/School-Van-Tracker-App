@@ -73,9 +73,9 @@ class TrackingDetailsListTitle extends StatelessWidget{
                       flex: 0,
                       child: Column(
                         children: [
-                          ElevatedButton.icon(onPressed: (){onTrackPressed!();}, label:Text('Track'),icon: SvgPicture.asset('assets/images/icons/location_icon.svg',width: 25,height: 25,color: ColorTheme.yellow,),style: ButtonStyle(foregroundColor: WidgetStatePropertyAll(ColorTheme.yellow),elevation: WidgetStatePropertyAll(8.ss),shadowColor: WidgetStatePropertyAll(ColorTheme.yellow.withOpacity(0.7))),),
+                          ElevatedButton.icon(onPressed: (){onTrackPressed!();}, label:Text('Track'),icon: SvgPicture.asset('assets/images/icons/location_icon.svg',width: 25,height: 25,color: ColorTheme.yellow,),style: ButtonStyle(foregroundColor: WidgetStatePropertyAll(ColorTheme.yellow),elevation: WidgetStatePropertyAll(2.ss),shadowColor: WidgetStatePropertyAll(ColorTheme.yellow.withOpacity(0.7)),shape: WidgetStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.ss),side: BorderSide(width: 1.ss,color: ColorTheme.yellow.withOpacity(0.7))))),),
                           SizedBox(height: 15.ss,),
-                          ElevatedButton.icon(onPressed: (){onCallPressed!();}, label:Text('Call  '),icon: SvgPicture.asset('assets/images/icons/phone_icon.svg',width: 25,height: 25,color: ColorTheme.green,),style: ButtonStyle(foregroundColor: WidgetStatePropertyAll(ColorTheme.green),elevation: WidgetStatePropertyAll(8.ss),shadowColor: WidgetStatePropertyAll(ColorTheme.green.withOpacity(0.7))),),
+                          ElevatedButton.icon(onPressed: (){onCallPressed!();}, label:Text('Call  '),icon: SvgPicture.asset('assets/images/icons/phone_icon.svg',width: 25,height: 25,color: ColorTheme.green,),style: ButtonStyle(foregroundColor: WidgetStatePropertyAll(ColorTheme.green),elevation: WidgetStatePropertyAll(2.ss),shadowColor: WidgetStatePropertyAll(ColorTheme.green.withOpacity(0.7)),shape: WidgetStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.ss),side: BorderSide(width: 1.ss,color: ColorTheme.green.withOpacity(0.7)) ))),),
                         ],
                       )),
                 ],

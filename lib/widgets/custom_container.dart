@@ -8,8 +8,20 @@ import 'package:sizing/sizing.dart';
 
 class CustomContainer extends StatelessWidget{
   final Widget child;
+  final double topRight;
+  final double topLeft;
+  final double bottomLeft;
+  final double bottomRight;
+  final Color color;
 
-  CustomContainer({required this.child});
+  CustomContainer({
+    required this.child,
+    this.topRight = 50,
+    this.topLeft = 50,
+    this.bottomRight = 0,
+    this.bottomLeft = 0,
+    this.color = ColorTheme.yellow,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -17,8 +29,8 @@ class CustomContainer extends StatelessWidget{
       child: this.child,
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
-        color: ColorTheme.yellow.withOpacity(0.7),
-        borderRadius: BorderRadius.only(topRight: Radius.circular(50.ss),topLeft: Radius.circular(50.ss))
+        color: color.withOpacity(0.7),
+        borderRadius: BorderRadius.only(topRight: Radius.circular(topRight.ss),topLeft: Radius.circular(topLeft.ss),bottomRight: Radius.circular(bottomRight.ss),bottomLeft: Radius.circular(bottomLeft.ss))
       ),
     );
   }
