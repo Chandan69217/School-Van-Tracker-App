@@ -19,16 +19,33 @@ class RegistrationScreen extends StatefulWidget{
 }
 
 class RegistrationScreenStates extends State<StatefulWidget> with SingleTickerProviderStateMixin{
+  AnimationController? controller;
+  Animation<Offset>? animation;
+  TextEditingController mobileController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController confirmPasswordController = TextEditingController();
+  FocusNode mobileFocusNode = FocusNode();
+  FocusNode passwordFocusNode = FocusNode();
+  FocusNode confirmPasswordFocusNode = FocusNode();
+  bool isLoading = false;
+  bool visiblePassword = true;
+  bool visibleConfirmPassword = true;
 
-
+  @override
+  void initState() {
+    super.initState();
+    controller = AnimationController(vsync: this,duration: Duration(milliseconds: 1200));
+    animation = Tween<Offset>(begin:Offset(0,1.5),end: Offset.zero).animate(CurvedAnimation(parent: controller!, curve: Curves.easeIn));
+    controller!.forward();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(child: Container(
-        alignment: Alignment.bottomCenter,
-        child: SingleChildScrollView(
-          child: SlideUpAnimation(
-            milliseconds: 800,
+      body: SafeArea(child: SlideTransition(
+        position: animation!,
+        child: Container(
+          alignment: Alignment.bottomCenter,
+          child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.end,
@@ -43,6 +60,8 @@ class RegistrationScreenStates extends State<StatefulWidget> with SingleTickerPr
                         children: [
                           SizedBox(height: 40.ss,),
                           CustomTextField( obscureText: false,
+                          focusNode: mobileFocusNode,
+                          controller: mobileController,
                           hintText: 'Mobile No',
                           maxLength: 10,
                           prefixIcon: Icon(Icons.phone_android),
@@ -50,23 +69,38 @@ class RegistrationScreenStates extends State<StatefulWidget> with SingleTickerPr
                           textInputType: TextInputType.phone,
                           textInputFormatter: [FilteringTextInputFormatter.digitsOnly],),
                           SizedBox(height: 30.ss,),
-                          CustomTextField(obscureText: true,
+
+                          CustomTextField(obscureText: visiblePassword,
+                          focusNode: passwordFocusNode,
+                          controller: passwordController,
                           hintText: 'Password',
                           prefixIcon: Icon(Icons.password),
-                          suffixIconButton: IconButton(onPressed: (){}, icon: Icon(Icons.remove_red_eye)),
+                          suffixIconButton: IconButton(onPressed: (){
+                            setState(() {
+                              visiblePassword = !visiblePassword;
+                            });
+                          }, icon: Icon(visiblePassword ? Icons.visibility_off:Icons.visibility)),
                           textInputType: TextInputType.visiblePassword,
                           textInputAction: TextInputAction.next,),
                           SizedBox(height: 30.ss,),
-                          CustomTextField(obscureText: true,
+                          CustomTextField(obscureText: visibleConfirmPassword,
+                          focusNode: confirmPasswordFocusNode,
+                          controller: confirmPasswordController,
                           prefixIcon: Icon(Icons.password),
-                          suffixIconButton: IconButton(onPressed: (){}, icon: Icon(Icons.remove_red_eye)),
+                          suffixIconButton: IconButton(onPressed: (){
+                            setState(() {
+                              visibleConfirmPassword = !visibleConfirmPassword;
+                            });
+                          }, icon: Icon(visibleConfirmPassword ? Icons.visibility_off:Icons.visibility)),
                           hintText: 'Confirm Password',
                           textInputAction: TextInputAction.done,
                           textInputType: TextInputType.visiblePassword,),
                           SizedBox(height: 30.ss,),
                           SizedBox(height: 50.ss,
                           child: ElevatedButton(
-                              onPressed: (){},
+                              onPressed: (){
+                                register();
+                              },
                             child: Row(mainAxisAlignment: MainAxisAlignment.center,children: [Text('Create',style:  Theme.of(context).textTheme.headlineSmall),SizedBox(width: 5.ss,),Icon(Icons.create_outlined),],)
                           ),
                           ),
@@ -86,6 +120,35 @@ class RegistrationScreenStates extends State<StatefulWidget> with SingleTickerPr
         ),
       )),
     );
+  }
+
+
+  void register(){
+    String mobile = mobileController.text;
+    String password = passwordController.text;
+    String confirmPassword = confirmPasswordController.text;
+
+    if(mobile.isEmpty){
+      mobileFocusNode.requestFocus();
+      return;
+    }
+
+    if(password.isEmpty){
+      passwordFocusNode.requestFocus();
+      return;
+    }
+
+    if(confirmPassword.isEmpty){
+      confirmPasswordFocusNode.requestFocus();
+      return;
+    }
+
+
+  }
+  @override
+  void dispose() {
+    super.dispose();
+    controller!.dispose();
   }
 
 }

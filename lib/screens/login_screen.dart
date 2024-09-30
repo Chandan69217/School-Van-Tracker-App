@@ -28,25 +28,31 @@ class _LoginScreenState extends State<LoginScreen>
       TextEditingController();
   final TextEditingController passwordTextFieldController =
       TextEditingController();
-  final bool obscureText = false;
+  AnimationController? controller;
+  Animation<Offset>? animation;
+  bool obscureText = true;
   bool isLoading = false;
   Response? response;
-  double buttonOpacity = 1;
+  FocusNode emailFocusNode = FocusNode();
+  FocusNode passwordFocusNode = FocusNode();
 
 
   @override
   void initState() {
     super.initState();
+    controller = AnimationController(vsync: this,duration: Duration(milliseconds: 1200));
+    animation = Tween<Offset>(begin:Offset(0,1.5),end: Offset.zero).animate(CurvedAnimation(parent: controller!, curve: Curves.easeIn));
+    controller!.forward();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Container(
-          alignment: Alignment.bottomCenter,
-          child: SlideUpAnimation(
-            milliseconds: 1000,
+        child: SlideTransition(
+          position: animation!,
+          child: Container(
+            alignment: Alignment.bottomCenter,
             child: SingleChildScrollView(
               child: Column(children: [
                 Text(
@@ -72,6 +78,7 @@ class _LoginScreenState extends State<LoginScreen>
                           height: 40.ss,
                         ),
                         CustomTextField(
+                          focusNode: emailFocusNode,
                           controller: emailTextFieldController,
                           // maxLength: 10,
                           textInputType: TextInputType.emailAddress,
@@ -79,7 +86,7 @@ class _LoginScreenState extends State<LoginScreen>
                           // textInputFormatter: <TextInputFormatter>[
                           //   FilteringTextInputFormatter.digitsOnly,
                           // ],
-                          prefixIcon: Icon(Icons.email_outlined),
+                          prefixIcon: Icon(Icons.email),
                           hintText: 'Email ID',
                         ),
                         SizedBox(
@@ -87,6 +94,7 @@ class _LoginScreenState extends State<LoginScreen>
                         ),
 
                         CustomTextField(
+                          focusNode: passwordFocusNode,
                           controller: passwordTextFieldController,
                           textInputAction: TextInputAction.done,
                           textInputType: TextInputType.visiblePassword,
@@ -94,19 +102,12 @@ class _LoginScreenState extends State<LoginScreen>
                           prefixIcon: Icon(Icons.password),
                           hintText: 'Password',
                           suffixIconButton: IconButton(
-                              onPressed: () {}, icon: Icon(Icons.visibility)),
+                              onPressed: () {
+                                setState(() {
+                                  obscureText = !obscureText;
+                                });
+                              }, icon: obscureText ? Icon(Icons.visibility_off):Icon(Icons.visibility)),
                         ),
-
-                        // TextField(
-                        //   obscureText: passwordVisible,
-                        //   decoration: InputDecoration(
-                        //     suffixIcon: IconButton(onPressed: (){
-                        //      setState(() {
-                        //        passwordVisible = !passwordVisible;
-                        //      });
-                        //     }, icon: Icon(Icons.visibility))
-                        //   ),
-                        // ),
 
                         Container(
                             alignment: Alignment.centerRight,
@@ -128,13 +129,10 @@ class _LoginScreenState extends State<LoginScreen>
                           height: 18.ss,
                         ),
 
-                        isLoading ? CircularProgressIndicator():SizedBox(
+                        isLoading ? CircularProgressIndicator(color: Colors.white,):SizedBox(
                           height: 50.ss,
                           child: ElevatedButton(
                               onPressed: () {
-                                setState(() {
-                                  buttonOpacity = 0;
-                                });
                                 login();
                               },
                               child: Row(
@@ -197,43 +195,13 @@ class _LoginScreenState extends State<LoginScreen>
     String email = emailTextFieldController.text;
     String password = passwordTextFieldController.text;
 
-    if(email.isEmpty && password.isEmpty){
-      DialogBox(context: context,
-        hide: 0,
-        onPressedOk: (BuildContext context) {
-          Navigator.pop(context);
-        },
-        icon: Icons.error_outline,
-        title: 'Invalid Credentials',
-        content: 'please enter email & password',
-      );
-      return;
-    }
-
     if(email.isEmpty){
-      DialogBox(context: context,
-        hide: 0,
-        onPressedOk: (BuildContext context) {
-          Navigator.pop(context);
-        },
-        icon: Icons.email_outlined,
-        title: 'Enter email',
-        content: 'please fill your email address its required',
-      );
+      emailFocusNode.requestFocus();
       return;
     }
-
 
     if(password.isEmpty){
-      DialogBox(context: context,
-        hide: 0,
-        onPressedOk: (BuildContext context) {
-          Navigator.pop(context);
-        },
-        icon: Icons.password_outlined,
-        title: 'Enter Password',
-        content: 'please enter your password its required',
-      );
+      passwordFocusNode.requestFocus();
       return;
     }
 
@@ -275,59 +243,11 @@ class _LoginScreenState extends State<LoginScreen>
   }
 
 
+  @override
+  void dispose() {
+    super.dispose();
+    controller!.dispose();
+  }
 
 
-
-
-
-  // void login() async {
-  //   String email = emailTextFieldController.text;
-  //   String password = passwordTextFieldController.text;
-  //   try {
-  //     setState(() {
-  //       loading=false;
-  //     });
-  //     if(emailTextFieldController.text.isNotEmpty
-  //         && passwordTextFieldController.text.isNotEmpty){
-  //       print(email);
-  //       print(password);
-  //       setState(() {
-  //         loading = true;
-  //       });
-  //
-  //       Map<String,dynamic> body = {
-  //     Consts.EMAIL : email,
-  //     Consts.PASSWORD : password
-  //   };
-  //
-  //   response = await getResponse('/api/login',body );
-  //
-  //   if(response!.statusCode == 200){
-  //     Navigator.push(context, MaterialPageRoute(
-  //         builder: (context) =>
-  //             DashboardScreen()));
-  //   }else{
-  //     DialogBox(context: context,
-  //       onPressedOk: (BuildContext context) {
-  //         Navigator.pop(context);
-  //       },
-  //       onPressedCancel: (BuildContext context) {  },
-  //       icon: Icons.email_outlined,
-  //       title: 'Invalid Credentials',
-  //       content: 'please retry with valid email and password',
-  //     );
-  //   }
-  //
-  //
-  //     }else{
-  //       DialogBox(context: context,title:
-  //       "Please fill all required field", onPressedOk: (BuildContext context) { Navigator.pop(context); }, onPressedCancel: (BuildContext context) {  });
-  //     }
-  //
-  //   } catch (e) {}finally{
-  //     setState(() {
-  //       loading=true;
-  //     });
-  //   }
-  // }
 }

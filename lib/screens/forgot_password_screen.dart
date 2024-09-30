@@ -19,14 +19,26 @@ class ForgotPasswordScreen extends StatefulWidget{
 
 class ForgotPasswordScreenStates extends State<StatefulWidget> with SingleTickerProviderStateMixin{
 
+  AnimationController? controller;
+  Animation<Offset>? animation;
+  FocusNode mobileFocusNode = FocusNode();
+
+  @override
+  void initState() {
+    super.initState();
+    controller = AnimationController(vsync: this,duration: Duration(milliseconds: 1200));
+    animation = Tween<Offset>(begin:Offset(0,1.5),end: Offset.zero).animate(CurvedAnimation(parent: controller!, curve: Curves.easeIn));
+    controller!.forward();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-          child: Container(
-            alignment: Alignment.bottomCenter,
-            child: SlideUpAnimation(
-              milliseconds: 1000,
+          child: SlideTransition(
+            position: animation!,
+            child: Container(
+              alignment: Alignment.bottomCenter,
               child: SingleChildScrollView(
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.end,
@@ -43,6 +55,7 @@ class ForgotPasswordScreenStates extends State<StatefulWidget> with SingleTicker
                             children: [
                               SizedBox(height: 30.ss,),
                               CustomTextField(obscureText: false,
+                              focusNode: mobileFocusNode,
                               hintText: 'Enter Registered Mobile No',
                               maxLength: 10,
                               prefixIcon: Icon(Icons.phone_android),
@@ -50,7 +63,9 @@ class ForgotPasswordScreenStates extends State<StatefulWidget> with SingleTicker
                               textInputAction: TextInputAction.done,),
                               SizedBox(height: 30.ss,),
                               SizedBox(height: 50.ss,
-                              child: ElevatedButton(onPressed: (){},
+                              child: ElevatedButton(onPressed: (){
+                                mobileFocusNode.requestFocus();
+                              },
                                   child: Row(mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Icon(Icons.sms,color: ColorTheme.dark,),
@@ -64,7 +79,7 @@ class ForgotPasswordScreenStates extends State<StatefulWidget> with SingleTicker
                                       .of(context)
                                       .textTheme
                                       .headlineSmall,)),
-
+            
                               SizedBox(height: 230.ss,),
                             ],
                           ),
@@ -73,10 +88,15 @@ class ForgotPasswordScreenStates extends State<StatefulWidget> with SingleTicker
                     ],
                   ),
                 ),
-            ),
-            ),
+              ),
+          ),
           ),
     );
   }
 
+  @override
+  void dispose() {
+    super.dispose();
+    controller!.dispose();
+  }
 }

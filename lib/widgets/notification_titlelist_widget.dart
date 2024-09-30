@@ -21,7 +21,6 @@ class NotificationTitlelistWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 110,
       width: MediaQuery.of(context).size.width,
       child: Card(
         elevation: 5.ss,

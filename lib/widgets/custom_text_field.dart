@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:school_route/utilities/color_theme.dart';
 import 'package:sizing/sizing.dart';
 
@@ -16,7 +15,7 @@ class CustomTextField extends  StatelessWidget{
   final TextInputType? textInputType;
   final List<TextInputFormatter>? textInputFormatter;
   final int? maxLength;
-
+  final FocusNode? focusNode;
 
   CustomTextField({
     this.controller,
@@ -28,6 +27,7 @@ class CustomTextField extends  StatelessWidget{
     this.textInputType,
     this.textInputFormatter,
     this.maxLength,
+    this.focusNode,
   });
 
   @override
@@ -36,13 +36,15 @@ class CustomTextField extends  StatelessWidget{
         height: 60.ss,
         padding: EdgeInsets.only(top: 12.ss,bottom: 12.ss,right: 8.ss),
         decoration: BoxDecoration(
-            border: Border.all(width: 1.ss),
+            border: Border.all(width: 1.ss,),
             borderRadius: BorderRadius.all(Radius.circular(24.ss))
         ),
         child: Center(
           child: TextField(
+            focusNode: focusNode,
             keyboardType: textInputType,
             inputFormatters: textInputFormatter,
+            obscureText: obscureText,
             maxLength: maxLength,
             textInputAction: textInputAction,
             controller: controller,

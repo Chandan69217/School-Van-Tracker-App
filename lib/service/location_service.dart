@@ -51,11 +51,7 @@ class LocationService{
 
      bool isServiceEnabled = await Geolocator.isLocationServiceEnabled();
      if(!isServiceEnabled){
-       DialogBox(context: context,onPressedCancel: (context){
-         Navigator.pop(context );
-       },onPressedOk: (contact) async{
-         await Geolocator.openLocationSettings();
-       },title: 'Open Settings');
+       await Geolocator.openLocationSettings();
      }
 
      LocationPermission permission = await Geolocator.checkPermission();
