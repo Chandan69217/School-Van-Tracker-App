@@ -81,7 +81,7 @@ class MapState extends State<GoogleMapWidget> {
   }
 
   void getCurrentLocationStream() async{
-    positionStream = await LocationService.getCurrentLocationStream();
+    positionStream = await LocationService.getCurrentLocationStream(context);
     positionStream!.listen((Position _position){
       position = _position;
       setState(() {

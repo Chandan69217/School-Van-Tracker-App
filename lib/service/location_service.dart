@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:school_route/widgets/dialog_box_widget.dart';
 
 class LocationService{
 
@@ -45,11 +47,15 @@ class LocationService{
 
 
 
-   static Future<Stream<Position>> getCurrentLocationStream() async{
+   static Future<Stream<Position>> getCurrentLocationStream(BuildContext context) async{
 
      bool isServiceEnabled = await Geolocator.isLocationServiceEnabled();
      if(!isServiceEnabled){
-       await Geolocator.openLocationSettings();
+       DialogBox(context: context,onPressedCancel: (context){
+         Navigator.pop(context );
+       },onPressedOk: (contact) async{
+         await Geolocator.openLocationSettings();
+       },title: 'Open Settings');
      }
 
      LocationPermission permission = await Geolocator.checkPermission();

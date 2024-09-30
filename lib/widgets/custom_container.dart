@@ -23,15 +23,16 @@ class CustomContainer extends StatelessWidget{
     this.color = ColorTheme.yellow,
   });
 
-  @override
   Widget build(BuildContext context) {
     return Container(
-      child: this.child,
+      child: child,
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
-        color: color.withOpacity(0.7),
-        borderRadius: BorderRadius.only(topRight: Radius.circular(topRight.ss),topLeft: Radius.circular(topLeft.ss),bottomRight: Radius.circular(bottomRight.ss),bottomLeft: Radius.circular(bottomLeft.ss))
+          color: color.withOpacity(0.7),
+          borderRadius: BorderRadius.only(topRight: Radius.circular(topRight.ss),topLeft: Radius.circular(topLeft.ss),bottomRight: Radius.circular(bottomRight.ss),bottomLeft: Radius.circular(bottomLeft.ss))
       ),
     );
   }
+
 }
+

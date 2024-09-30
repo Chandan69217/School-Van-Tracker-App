@@ -19,7 +19,6 @@ class ForgotPasswordScreen extends StatefulWidget{
 
 class ForgotPasswordScreenStates extends State<StatefulWidget> with SingleTickerProviderStateMixin{
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,7 +42,7 @@ class ForgotPasswordScreenStates extends State<StatefulWidget> with SingleTicker
                           child: Column(
                             children: [
                               SizedBox(height: 30.ss,),
-                              CustomTextField(obscureCharacter: '.', obscureText: false,
+                              CustomTextField(obscureText: false,
                               hintText: 'Enter Registered Mobile No',
                               maxLength: 10,
                               prefixIcon: Icon(Icons.phone_android),

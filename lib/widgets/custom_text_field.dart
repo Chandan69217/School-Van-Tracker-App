@@ -1,6 +1,3 @@
-
-
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -14,7 +11,6 @@ class CustomTextField extends  StatelessWidget{
   final Icon? prefixIcon;
   final IconButton? suffixIconButton;
   final String? hintText;
-  final String obscureCharacter;
   final bool obscureText;
   final TextInputAction? textInputAction;
   final TextInputType? textInputType;
@@ -22,28 +18,26 @@ class CustomTextField extends  StatelessWidget{
   final int? maxLength;
 
 
-
   CustomTextField({
     this.controller,
     this.prefixIcon,
     this.suffixIconButton,
     this.hintText,
-    required this.obscureCharacter,
-    required this.obscureText,
+    this.obscureText = false,
     this.textInputAction,
     this.textInputType,
     this.textInputFormatter,
-    this.maxLength
+    this.maxLength,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 60.ss,
+        height: 60.ss,
         padding: EdgeInsets.only(top: 12.ss,bottom: 12.ss,right: 8.ss),
         decoration: BoxDecoration(
-          border: Border.all(width: 1.ss),
-          borderRadius: BorderRadius.all(Radius.circular(24.ss))
+            border: Border.all(width: 1.ss),
+            borderRadius: BorderRadius.all(Radius.circular(24.ss))
         ),
         child: Center(
           child: TextField(
@@ -52,22 +46,19 @@ class CustomTextField extends  StatelessWidget{
             maxLength: maxLength,
             textInputAction: textInputAction,
             controller: controller,
-            obscureText: obscureText,
-            obscuringCharacter: obscureCharacter ,
+            obscuringCharacter: "*",
             style: Theme.of(context).textTheme.titleMedium,
             decoration: InputDecoration(
-              border: InputBorder.none,
-              counterText: '',
-              labelStyle: TextStyle(fontFamily: 'Poppins'),
-              prefixIcon: prefixIcon,
-              suffixIcon: suffixIconButton,
-              hintText: hintText,
-              hintStyle: Theme.of(context).textTheme.titleMedium!.copyWith(color: ColorTheme.gray)
+                border: InputBorder.none,
+                counterText: '',
+                labelStyle: TextStyle(fontFamily: 'Poppins'),
+                prefixIcon: prefixIcon,
+                suffixIcon: suffixIconButton,
+                hintText: hintText,
+                hintStyle: Theme.of(context).textTheme.titleMedium!.copyWith(color: ColorTheme.gray)
             ),
           ),
         )
     );
   }
-
-
 }
