@@ -42,9 +42,11 @@ class _HomeScreenWidgetState extends State<HomeScreenWidget> {
                           ])
                     ]),
               ),
-              Image(image: AssetImage ('assets/images/school_bus.png'),
-                height: 90.ss,
-                width: 90.ss,),
+              Expanded(
+                child: Image(image: AssetImage ('assets/images/school_bus.png'),
+                  height: 90.ss,
+                  width: 90.ss,),
+              ),
             ],),
 
             SizedBox(height: 10.ss,),

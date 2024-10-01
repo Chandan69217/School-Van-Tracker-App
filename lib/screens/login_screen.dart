@@ -261,7 +261,6 @@ class _LoginScreenState extends State<LoginScreen>
       if(View.of(context).viewInsets.bottom == 0){
         emailFocusNode.unfocus();
         passwordFocusNode.unfocus();
-        SharedPreferences
       }
     }
 

@@ -18,17 +18,15 @@ class DriverDetailsWidget extends StatelessWidget{
           alignment: Alignment.centerLeft,
           child: Row(children: [
             CustomText(text: 'Bus Driver Details', color: ColorTheme.red),
-            Padding(
-              padding: EdgeInsets.only(left: 160.ss),
-              child: Container(
-                  width: 30.ss,
-                  height: 30.ss,
-                  decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: ColorTheme.yellow
-                  ),
-                  child: IconButton(onPressed: (){},icon: SvgPicture.asset('assets/images/icons/arrow_icon.svg'))),
-            )
+            Expanded(child: SizedBox()),
+            Container(
+              width: 30.ss,
+                height: 30.ss,
+                decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: ColorTheme.yellow
+                ),
+                child: IconButton(onPressed: (){},icon: SvgPicture.asset('assets/images/icons/arrow_icon.svg')))
           ]),
         ),
 
@@ -42,9 +40,9 @@ class DriverDetailsWidget extends StatelessWidget{
               borderRadius: BorderRadius.all(Radius.circular(8.ss)),
           ),
           child: Padding(
-            padding: EdgeInsets.symmetric(vertical: 24.ss,horizontal: 24.ss),
+            padding: EdgeInsets.all(24.ss),
             child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Container(
                   width: 65.ss,
@@ -77,62 +75,42 @@ class DriverDetailsWidget extends StatelessWidget{
                 ),
 
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20.ss),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
+                  padding: EdgeInsets.only(left: 20.ss,right: 20.ss),
+                  child: Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            SvgPicture.asset('assets/images/icons/user_icon.svg',width: 25.ss,height: 25.ss,color: Colors.white.withOpacity(0.9),),
+                            SizedBox(width: 10.ss,),
+                            RichText(text: TextSpan(text: 'Driver Name',children: [TextSpan(text: '\n'),TextSpan(text: 'BL Dhaka')],style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Colors.white),)),
+                          ],
+                        ),
 
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SvgPicture.asset('assets/images/icons/user_icon.svg',width: 25.ss,height: 25.ss,color: Colors.white.withOpacity(0.9),),
-                          SizedBox(width: 20.ss,),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text('Driver Name',style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Colors.white),),
-                              Text('BL Dhaka',style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Colors.white),),
+                        SizedBox(height: 10.ss,),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            SvgPicture.asset('assets/images/icons/phone_icon.svg',width: 25.ss,height: 25.ss,color: Colors.white.withOpacity(0.9),),
+                            SizedBox(width: 10.ss,),
+                            RichText(text: TextSpan(text: 'Contact Number',children: [TextSpan(text: '\n'),TextSpan(text: '8864020640')],style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Colors.white),)),
+                          ],
+                        ),
 
-                            ],
-                          )
-                        ],
-                      ),
+                        SizedBox(height: 10.ss,),
 
-                      SizedBox(height: 10.ss,),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SvgPicture.asset('assets/images/icons/phone_icon.svg',width: 25.ss,height: 25.ss,color: Colors.white.withOpacity(0.9),),
-                          SizedBox(width: 20.ss,),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text('Contact Number',style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Colors.white),),
-                              Text('8864020240',style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Colors.white),),
-
-                            ],
-                          )
-                        ],
-                      ),
-
-                      SizedBox(height: 10.ss,),
-
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SvgPicture.asset('assets/images/icons/bus_icon.svg',width: 25.ss,height: 25.ss,color: Colors.white.withOpacity(0.9),),
-                          SizedBox(width: 20.ss,),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text('Bus Number',style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Colors.white),),
-                              Text('M.P.09-7621A',style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Colors.white),),
-
-                            ],
-                          )
-                        ],
-                      ),
-                    ]),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            SvgPicture.asset('assets/images/icons/bus_icon.svg',width: 25.ss,height: 25.ss,color: Colors.white.withOpacity(0.9),),
+                            SizedBox(width: 10.ss,),
+                            RichText(text: TextSpan(text: 'Bus Number',children: [TextSpan(text: '\n'),TextSpan(text: 'M.P.09-7621A')],style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Colors.white),)),
+                          ],
+                        ),
+                      ]),
+                  ),
                 ),
 
               ],

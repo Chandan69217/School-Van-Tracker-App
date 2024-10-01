@@ -42,28 +42,61 @@ class _ProfileScreenWidgetState extends State<ProfileScreenWidget> {
                  color: ColorTheme.gray.withOpacity(0.2)
              ),
              child: Padding(
-               padding: EdgeInsets.only(left: 12.ss),
-               child: Column(
-                 mainAxisAlignment: MainAxisAlignment.start,
-                 children: [
+               padding: EdgeInsets.only(left: 12.ss,bottom: 12.ss),
+               child: Expanded(
+                 child: Column(
+                   mainAxisAlignment: MainAxisAlignment.start,
+                   children: [
+                 
+                     Row(crossAxisAlignment: CrossAxisAlignment.start,
+                       children: [
+                         Padding(padding: EdgeInsets.only(top: 14.ss),
+                             child: Text('Personal Details',style: Theme.of(context).textTheme.headlineSmall!.copyWith(fontSize: 12,color: ColorTheme.gray_dark.withOpacity(0.66),))),
+                         Expanded(child: SizedBox()),IconButton(onPressed: (){},icon: Icon(Icons.edit),style: ButtonStyle(iconColor: WidgetStatePropertyAll(ColorTheme.gray_dark.withOpacity(0.66)),iconSize: WidgetStatePropertyAll(20.ss))),
+                       ],
+                     ),
+                 
+                     Row( crossAxisAlignment: CrossAxisAlignment.center,
+                       children: [
+                         SvgPicture.asset('assets/images/icons/gender_icon.svg',width: 24.ss,height: 24.ss,),
+                         SizedBox(width: 5.ss,),
+                         Expanded(child: RichText(text: TextSpan(text: 'Gender',children: [TextSpan(text: '\n',),TextSpan(text: 'Male')],style: Theme.of(context).textTheme.headlineSmall)))
+                        ],
+                     ),
+                 
+                     SizedBox(height: 5.ss,),
 
-                   Row(crossAxisAlignment: CrossAxisAlignment.start, children: [ Padding(padding: EdgeInsets.only(top: 14.ss),child: Text('Personal Details',style: Theme.of(context).textTheme.headlineSmall!.copyWith(fontSize: 12,color: ColorTheme.gray_dark.withOpacity(0.66),))), SizedBox(width: MediaQuery.of(context).size.width*0.46,),IconButton(onPressed: (){},icon: Icon(Icons.edit),style: ButtonStyle(iconColor: WidgetStatePropertyAll(ColorTheme.gray_dark.withOpacity(0.66)),iconSize: WidgetStatePropertyAll(20.ss))),],),
-
-                   Row( crossAxisAlignment: CrossAxisAlignment.center,children: [SvgPicture.asset('assets/images/icons/gender_icon.svg',width: 24.ss,height: 24.ss,),SizedBox(width: 5.ss,),Column( crossAxisAlignment: CrossAxisAlignment.start,children: [Text('Gender'),Text('Male')]),],),
-
-                   SizedBox(height: 5,),
-                   Row( crossAxisAlignment: CrossAxisAlignment.center,children: [SvgPicture.asset('assets/images/icons/phone_icon.svg',width: 24.ss,height: 24.ss,),SizedBox(width: 5.ss,),Column( crossAxisAlignment: CrossAxisAlignment.start,children: [Text('Mobile No'),Text('8969893457')]),],),
-
-                   SizedBox(height: 5,),
-                   Row( crossAxisAlignment: CrossAxisAlignment.center,children: [SvgPicture.asset('assets/images/icons/cake_icon.svg',width: 24.ss,height: 24.ss,),SizedBox(width: 5.ss,),Column( crossAxisAlignment: CrossAxisAlignment.start,children: [Text('Date Of Birth'),Text('03/09/2004')]),],),
-
-                   SizedBox(height: 5,),
-
-                   Row( crossAxisAlignment: CrossAxisAlignment.center,children: [SvgPicture.asset('assets/images/icons/location_icon.svg',width: 24.ss,height: 24.ss,),SizedBox(width: 5,),Column( crossAxisAlignment: CrossAxisAlignment.start,children: [Text('Address'),Text('Pundaul - Goh Aurangabad 824203')]),],),
-
-                   SizedBox(height: 10,)
-
-                 ],
+                     Row( crossAxisAlignment: CrossAxisAlignment.center,
+                       children: [
+                         SvgPicture.asset('assets/images/icons/phone_icon.svg',width: 24.ss,height: 24.ss,),
+                         SizedBox(width: 5.ss,),
+                         Expanded(child: RichText(text: TextSpan(text: 'Mobile No',children: [TextSpan(text: '\n',),TextSpan(text: '8969893457')],style: Theme.of(context).textTheme.headlineSmall)))
+                       ],
+                     ),
+                 
+                     SizedBox(height: 5.ss,),
+                     Row( crossAxisAlignment: CrossAxisAlignment.center,
+                       children: [
+                         SvgPicture.asset('assets/images/icons/cake_icon.svg',width: 24.ss,height: 24.ss,),
+                         SizedBox(width: 5.ss,),
+                         Expanded(child: RichText(text: TextSpan(text: 'Date Of Birth',children: [TextSpan(text: '\n',),TextSpan(text: '03/09/2004')],style: Theme.of(context).textTheme.headlineSmall)))
+                       ],
+                     ),
+                 
+                     SizedBox(height: 5.ss,),
+                 
+                     Row( crossAxisAlignment: CrossAxisAlignment.center,
+                       children: [
+                         SvgPicture.asset('assets/images/icons/location_icon.svg',width: 24.ss,height: 24.ss,),
+                         SizedBox(width: 5.ss,),
+                         Expanded(child: RichText(text: TextSpan(text: 'Address',children: [TextSpan(text: '\n',),TextSpan(text: 'Pundaul - Goh Aurangabad 824203')],style: Theme.of(context).textTheme.headlineSmall)))
+                       ],
+                     ),
+                 
+                     SizedBox(height: 10.ss,)
+                 
+                   ],
+                 ),
                ),
              ),
            ),

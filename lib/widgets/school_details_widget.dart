@@ -46,13 +46,8 @@ class SchoolDetailsWidget extends StatelessWidget{
                      ),
                    ),
                    SizedBox(width: 8.ss,),
-                   Column(
-                     crossAxisAlignment: CrossAxisAlignment.start,
-                     children: [
-                       Text('School Name',style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Colors.white),),
-                       Text('D.A.V Public School',style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Colors.white),)
-                     ],
-                   )
+
+                   Expanded(child: RichText(text: TextSpan(text: 'School Name',children: [TextSpan(text: '\n'),TextSpan(text: 'D.A.V Public School')],style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Colors.white),))),
                  ],
                ),
 
@@ -65,14 +60,7 @@ class SchoolDetailsWidget extends StatelessWidget{
                    children: [
                      SvgPicture.asset('assets/images/icons/phone_icon.svg',width: 25.ss,height: 25.ss,color: Colors.white.withOpacity(0.9),),
                      SizedBox(width: 10.ss,),
-                     Column(
-                       crossAxisAlignment: CrossAxisAlignment.start,
-                       children: [
-                         Text('Contact Number',style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Colors.white),),
-                         Text('8969893457',style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Colors.white),),
-
-                       ],
-                     )
+                     Expanded(child: RichText(text: TextSpan(text: 'Contact Number',children: [TextSpan(text: '\n'),TextSpan(text: '8969893457')],style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Colors.white),))),
                    ],
                  ),
                ),
@@ -82,15 +70,7 @@ class SchoolDetailsWidget extends StatelessWidget{
                  children: [
                    SvgPicture.asset('assets/images/icons/location_icon.svg',width: 25.ss,height: 25.ss,color: Colors.white.withOpacity(0.9),),
                    SizedBox(width: 10.ss,),
-                   Column(
-                     crossAxisAlignment: CrossAxisAlignment.start,
-                     children: [
-                       Text('School Address',style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Colors.white),),
-                       Text('Reference Site About Lorem Ipsum,',style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Colors.white,overflow: TextOverflow.fade),),
-                       Text('Giving Indore M.P, 452009',style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Colors.white,overflow: TextOverflow.fade),),
-
-                     ],
-                   )
+                   Expanded(child: RichText(text: TextSpan(text: 'School Address',children: [TextSpan(text: '\n'),TextSpan(text: 'Reference Site About Lorem Ipsum, Giving Indore M.P, 452009')],style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Colors.white),))),
                  ],
                )
 

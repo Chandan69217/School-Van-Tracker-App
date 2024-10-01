@@ -22,14 +22,13 @@ class TrackingDetailsListTitle extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(12),
+      padding: EdgeInsets.all(12.ss),
       child: Card(
         //color: ColorTheme.light.withOpacity(0.3),
         elevation: 2.ss,
         child: Padding(
-          padding: EdgeInsets.all(12),
+          padding: EdgeInsets.all(12.ss),
           child: Container(
-              height: 120,
               alignment: Alignment.center,
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,

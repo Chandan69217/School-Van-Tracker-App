@@ -20,20 +20,22 @@ class TrackingScreenWidget extends StatefulWidget{
 class _TrackingScreenWidgetState extends State<TrackingScreenWidget>{
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        TrackingDetailsListTitle(onTrackPressed: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context)=>TrackerScreen()));
-          },onCallPressed: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context)=>RegistrationScreen()));
-        },title: 'Sandeep Kumar Singh', driverName: 'Ramesh Kumar', busNo: 'BR 09 WG 3184', imagePath: 'assets/images/profile_image.jpg'),
-        SizedBox(height: 5.ss,),
-        TrackingDetailsListTitle(onCallPressed: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context)=>RegistrationScreen()));},onTrackPressed:
-        (){
-
-        },title: 'Sandeep Kumar Singh', driverName: 'Ramesh Kumar', busNo: 'BR 09 WG 3184', imagePath: 'assets/images/profile_image.jpg'),
-      ],
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          TrackingDetailsListTitle(onTrackPressed: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context)=>TrackerScreen()));
+            },onCallPressed: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context)=>RegistrationScreen()));
+          },title: 'Sandeep Kumar Singh', driverName: 'Ramesh Kumar', busNo: 'BR 09 WG 3184', imagePath: 'assets/images/profile_image.jpg'),
+          SizedBox(height: 5.ss,),
+          TrackingDetailsListTitle(onCallPressed: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context)=>RegistrationScreen()));},onTrackPressed:
+          (){
+      
+          },title: 'Sandeep Kumar Singh', driverName: 'Ramesh Kumar', busNo: 'BR 09 WG 3184', imagePath: 'assets/images/profile_image.jpg'),
+        ],
+      ),
     );
 
   }
