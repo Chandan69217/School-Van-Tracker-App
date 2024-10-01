@@ -2,8 +2,11 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:school_route/models/consts.dart';
+import 'package:school_route/screens/dashboard_screen.dart';
 import 'package:school_route/screens/login_screen.dart';
 import 'package:school_route/utilities/color_theme.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizing/sizing.dart';
 
 class SplashScreen extends StatefulWidget{
@@ -15,13 +18,14 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
   late final AnimationController controller;
   late final Animation<double> animation;
 
+
   @override
   void initState(){
+    checkLoginStatus();
     controller = AnimationController(vsync: this,duration: Duration(seconds: 2));
     animation = CurvedAnimation(parent: controller, curve: Curves.fastOutSlowIn);
     controller.repeat(reverse: false);
     controller.forward();
-    Timer(Duration(milliseconds: 2200),()=> Navigator.pushReplacement(context,MaterialPageRoute(builder: (context)=>LoginScreen())));
   }
 
   @override
@@ -46,6 +50,29 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
   void dispose() {
     controller.dispose();
     super.dispose();
+  }
+
+  void checkLoginStatus() async{
+    final prefs = await SharedPreferences.getInstance();
+    final bool? islogin = prefs.getBool(Consts.IS_LOGIN);
+
+    Timer(const Duration(milliseconds: 2000),(){
+      Navigator.pushReplacement((context),
+        MaterialPageRoute(builder: (context){
+          if(islogin != null){
+            if(islogin){
+              return DashboardScreen();
+            }else{
+              return LoginScreen();
+            }
+          }else{
+            return LoginScreen();
+          }
+        })
+      );
+    });
+
+
   }
 
 

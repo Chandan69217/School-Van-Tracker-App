@@ -4,10 +4,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:school_route/models/consts.dart';
+import 'package:school_route/screens/login_screen.dart';
 import 'package:school_route/widgets/student_details_card.dart';
 import 'package:school_route/utilities/color_theme.dart';
 import 'package:school_route/widgets/custom_container.dart';
 import 'package:school_route/widgets/profile_pic_widget.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizing/sizing.dart';
 
 class ProfileScreenWidget extends StatefulWidget {
@@ -79,7 +82,9 @@ class _ProfileScreenWidgetState extends State<ProfileScreenWidget> {
            ),
 
             SizedBox(height: 30.ss,),
-            SizedBox(height: 50.ss,child: ElevatedButton(onPressed: (){}, child: Row(mainAxisAlignment:MainAxisAlignment.center,children: [Text('Logout', style: Theme
+            SizedBox(height: 50.ss,child: ElevatedButton(onPressed: (){
+              logout();
+            }, child: Row(mainAxisAlignment:MainAxisAlignment.center,children: [Text('Logout', style: Theme
                 .of(context)
                 .textTheme
                 .headlineMedium,),
@@ -90,6 +95,12 @@ class _ProfileScreenWidgetState extends State<ProfileScreenWidget> {
         ),
       ),
     );
+  }
+
+  void logout() async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setBool(Consts.IS_LOGIN, false);
+    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=> LoginScreen()),(Route<dynamic> route) => false,);
   }
 }
 
