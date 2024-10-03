@@ -54,7 +54,7 @@ class _HomeScreenWidgetState extends State<HomeScreenWidget> {
 
             SizedBox(height: 10.ss,),
 
-            DriverDetailsWidget()
+            DriverDetailsWidget(),
           ],
         ),
       ),

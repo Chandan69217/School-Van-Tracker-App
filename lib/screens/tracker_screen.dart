@@ -19,6 +19,9 @@ class _TrackerScreenState extends State<TrackerScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Track School Van'),
+      ),
       body: SafeArea(
           child: Stack(
             children: [

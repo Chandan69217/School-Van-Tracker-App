@@ -42,7 +42,7 @@ class StudentDetailsCard extends StatelessWidget {
             Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(crossAxisAlignment: CrossAxisAlignment.start, children: [ Padding(padding: EdgeInsets.only(top: 14.ss),child: Expanded(child: Text('Your Child Details',style: Theme.of(context).textTheme.headlineSmall!.copyWith(fontSize: 12,color: ColorTheme.gray_dark.withOpacity(0.66),)))),/* SizedBox(width: MediaQuery.of(context).size.width*0.435,),IconButton(onPressed: (){},icon: Icon(Icons.edit),style: ButtonStyle(iconColor: WidgetStatePropertyAll(ColorTheme.gray_dark.withOpacity(0.66)),iconSize: WidgetStatePropertyAll(20.ss))),*/],),
+              Row(crossAxisAlignment: CrossAxisAlignment.start, children: [ Padding(padding: EdgeInsets.only(top: 14.ss),child: Text('Your Child Details',style: Theme.of(context).textTheme.headlineSmall!.copyWith(fontSize: 12,color: ColorTheme.gray_dark.withOpacity(0.66),))),/* SizedBox(width: MediaQuery.of(context).size.width*0.435,),IconButton(onPressed: (){},icon: Icon(Icons.edit),style: ButtonStyle(iconColor: WidgetStatePropertyAll(ColorTheme.gray_dark.withOpacity(0.66)),iconSize: WidgetStatePropertyAll(20.ss))),*/],),
 
               SizedBox(height: 10.ss,),
               Row(
@@ -66,19 +66,17 @@ class StudentDetailsCard extends StatelessWidget {
                         Text(childName,style: Theme.of(context).textTheme.headlineSmall!.copyWith(fontSize: 16,fontWeight: FontWeight.w500)),
                       ]
                   ),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          RichText(text: TextSpan(text: 'Sec: ',children: [TextSpan(text: sec)],style: Theme.of(context).textTheme.headlineSmall!.copyWith(fontSize: 12))),
-                          RichText(text: TextSpan(text: 'Class: ',children: [TextSpan(text: className)],style: Theme.of(context).textTheme.headlineSmall!.copyWith(fontSize: 12)),),
-                          RichText(text: TextSpan(text: 'Roll No: ',children: [TextSpan(text: rollNo)],style: Theme.of(context).textTheme.headlineSmall!.copyWith(fontSize: 12))),
-                          RichText(text: TextSpan(text: 'Mob: ',children: [TextSpan(text: mob)],style: Theme.of(context).textTheme.headlineSmall!.copyWith(fontSize: 12)),),
-                          RichText(text: TextSpan(text: 'Date Of Birth: ',children: [TextSpan(text: DOB)],style: Theme.of(context).textTheme.headlineSmall!.copyWith(fontSize: 12)),),
-                          SizedBox(height: 20,)
-                        ],
-                      ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        RichText(text: TextSpan(text: 'Sec: ',children: [TextSpan(text: sec)],style: Theme.of(context).textTheme.headlineSmall!.copyWith(fontSize: 12))),
+                        RichText(text: TextSpan(text: 'Class: ',children: [TextSpan(text: className)],style: Theme.of(context).textTheme.headlineSmall!.copyWith(fontSize: 12)),),
+                        RichText(text: TextSpan(text: 'Roll No: ',children: [TextSpan(text: rollNo)],style: Theme.of(context).textTheme.headlineSmall!.copyWith(fontSize: 12))),
+                        RichText(text: TextSpan(text: 'Mob: ',children: [TextSpan(text: mob)],style: Theme.of(context).textTheme.headlineSmall!.copyWith(fontSize: 12)),),
+                        RichText(text: TextSpan(text: 'Date Of Birth: ',children: [TextSpan(text: DOB)],style: Theme.of(context).textTheme.headlineSmall!.copyWith(fontSize: 12)),),
+                        SizedBox(height: 20,)
+                      ],
                     ),
                   ]
               ),

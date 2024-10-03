@@ -47,7 +47,7 @@ class LocationService{
 
 
 
-   static Future<Stream<Position>> getCurrentLocationStream(BuildContext context) async{
+   static Future<Stream<Position>> getCurrentLocationStream() async{
 
      bool isServiceEnabled = await Geolocator.isLocationServiceEnabled();
      if(!isServiceEnabled){
@@ -73,7 +73,7 @@ class LocationService{
      //  return Geolocator.getCurrentPosition(locationSettings: LocationSettings(accuracy: LocationAccuracy.high));
        return Geolocator.getPositionStream(locationSettings: const LocationSettings(accuracy: LocationAccuracy.high,));
      }else{
-       return Future.error('error while fetching user current location');
+       return Future.error('unable to fetch user current location');
      }
 
    }

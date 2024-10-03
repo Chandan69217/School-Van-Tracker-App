@@ -22,19 +22,17 @@ class ProfilePic extends StatelessWidget{
   Widget build(BuildContext context) {
     return Stack(
         alignment: Alignment.bottomCenter,
-        children: [Expanded(
-          child: Container(
-            width: 143.ss,
-            height: 143.ss,
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(70.ss)),
-                color: borderColor
-            ),
-            child: CircleAvatar(
-              backgroundImage: AssetImage(imagePath),
-              radius: 70.ss,
-            ),
+        children: [Container(
+          width: 143.ss,
+          height: 143.ss,
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(70.ss)),
+              color: borderColor
+          ),
+          child: CircleAvatar(
+            backgroundImage: AssetImage(imagePath),
+            radius: 70.ss,
           ),
         ),
 
