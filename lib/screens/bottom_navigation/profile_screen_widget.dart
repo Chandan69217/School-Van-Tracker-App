@@ -4,7 +4,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:school_route/models/consts.dart';
+import 'package:school_route/utilities/consts.dart';
 import 'package:school_route/screens/login_screen.dart';
 import 'package:school_route/widgets/student_details_card.dart';
 import 'package:school_route/utilities/color_theme.dart';

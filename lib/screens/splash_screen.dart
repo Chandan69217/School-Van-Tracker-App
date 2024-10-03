@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:school_route/models/consts.dart';
+import 'package:school_route/utilities/consts.dart';
 import 'package:school_route/screens/dashboard_screen.dart';
 import 'package:school_route/screens/login_screen.dart';
 import 'package:school_route/utilities/color_theme.dart';

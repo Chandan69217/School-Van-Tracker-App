@@ -1,7 +1,12 @@
 
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:school_route/models/bus_data.dart';
+import 'package:school_route/models/student_data.dart';
 import 'package:school_route/utilities/color_theme.dart';
+import 'package:school_route/utilities/consts.dart';
 import 'package:school_route/widgets/driver_details_widget.dart';
 import 'package:school_route/widgets/school_details_widget.dart';
 import 'package:sizing/sizing.dart';
@@ -12,8 +17,42 @@ class HomeScreenWidget extends StatefulWidget{
 }
 
 class _HomeScreenWidgetState extends State<HomeScreenWidget> {
+  final String studentStringJson = '''
+    {
+        "student": {
+            "name": "John Doe",
+            "class": "V",
+            "section": "A",
+            "image" : "assets/images/student_pic.jpg",
+        "school": {
+            "name": "D.A.V Public School",
+            "contact": "8969893457",
+            "address": "New York"
+        }
+    }
+        
+    }
+''';
+
+  final String busStringJson = '''{
+  "bus": {
+      "van_no": "12",
+    "bus_number": "M.P.09-7621A",
+    "driver": {
+      "name": "James Smith",
+      "contact": "8864020640"
+    }
+  }
+}''';
+
   @override
   Widget build(BuildContext context) {
+    final Map<String,dynamic> studentJson = json.decode(studentStringJson);
+    final Student student = Student.fromJson(studentJson[Consts.STUDENT]);
+
+    final Map<String,dynamic> busJson = json.decode(busStringJson);
+    final Bus bus = Bus.fromJson(busJson[Consts.BUS]);
+
     return SingleChildScrollView(
       child: Padding(
         padding: EdgeInsets.only(left: 24.ss,right: 24.ss,top: 12.ss,bottom: 12),
@@ -50,11 +89,24 @@ class _HomeScreenWidgetState extends State<HomeScreenWidget> {
             ],),
 
             SizedBox(height: 10.ss,),
-            SchoolDetailsWidget(),
+            SchoolDetailsWidget(
+              studentImage: student.image,
+              studentName: student.name,
+              className: student.classs,
+              section: student.section,
+              schoolName: student.school.name,
+              contactNumber: student.school.contact,
+              schoolAddress: student.school.address,
+            ),
 
             SizedBox(height: 10.ss,),
 
-            DriverDetailsWidget(),
+            DriverDetailsWidget(
+              vanNo: bus.vanNo,
+              driverName: bus.driver.name,
+              contact: bus.driver.contact,
+              busNumber: bus.busNumber,
+            ),
           ],
         ),
       ),

@@ -8,6 +8,12 @@ import '../utilities/color_theme.dart';
 import 'custom_text.dart';
 
 class DriverDetailsWidget extends StatelessWidget{
+  final String vanNo;
+  final String driverName;
+  final String contact;
+  final String busNumber;
+
+  DriverDetailsWidget({required this.vanNo,required this.driverName,required this.contact,required this.busNumber});
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +73,7 @@ class DriverDetailsWidget extends StatelessWidget{
                               shape: BoxShape.circle,
                               color: ColorTheme.yellow
                             ),
-                              child: Text('10',style: Theme.of(context).textTheme.headlineLarge!.copyWith(fontSize: 20.ss,fontWeight: FontWeight.w500,),)),
+                              child: Text(vanNo,style: Theme.of(context).textTheme.headlineLarge!.copyWith(fontSize: 20.ss,fontWeight: FontWeight.w500,),)),
                         )
                       ],
                     ),
@@ -84,7 +90,7 @@ class DriverDetailsWidget extends StatelessWidget{
                         children: [
                           SvgPicture.asset('assets/images/icons/user_icon.svg',width: 25.ss,height: 25.ss,color: Colors.white.withOpacity(0.9),),
                           SizedBox(width: 10.ss,),
-                          RichText(text: TextSpan(text: 'Driver Name',children: [TextSpan(text: '\n'),TextSpan(text: 'BL Dhaka')],style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Colors.white),)),
+                          RichText(text: TextSpan(text: 'Driver Name',children: [TextSpan(text: '\n'),TextSpan(text: driverName)],style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Colors.white),)),
                         ],
                       ),
 
@@ -94,7 +100,7 @@ class DriverDetailsWidget extends StatelessWidget{
                         children: [
                           SvgPicture.asset('assets/images/icons/phone_icon.svg',width: 25.ss,height: 25.ss,color: Colors.white.withOpacity(0.9),),
                           SizedBox(width: 10.ss,),
-                          RichText(text: TextSpan(text: 'Contact Number',children: [TextSpan(text: '\n'),TextSpan(text: '8864020640')],style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Colors.white),)),
+                          RichText(text: TextSpan(text: 'Contact Number',children: [TextSpan(text: '\n'),TextSpan(text: contact)],style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Colors.white),)),
                         ],
                       ),
 
@@ -105,7 +111,7 @@ class DriverDetailsWidget extends StatelessWidget{
                         children: [
                           SvgPicture.asset('assets/images/icons/bus_icon.svg',width: 25.ss,height: 25.ss,color: Colors.white.withOpacity(0.9),),
                           SizedBox(width: 10.ss,),
-                          RichText(text: TextSpan(text: 'Bus Number',children: [TextSpan(text: '\n'),TextSpan(text: 'M.P.09-7621A')],style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Colors.white),)),
+                          RichText(text: TextSpan(text: 'Bus Number',children: [TextSpan(text: '\n'),TextSpan(text: busNumber)],style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Colors.white),)),
                         ],
                       ),
                     ]),

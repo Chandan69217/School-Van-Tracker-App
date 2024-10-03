@@ -17,7 +17,7 @@ import 'package:school_route/widgets/dialog_box_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizing/sizing.dart';
 
-import '../models/consts.dart';
+import '../utilities/consts.dart';
 
 class LoginScreen extends StatefulWidget {
   @override

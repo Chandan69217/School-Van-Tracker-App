@@ -1,5 +1,5 @@
 import 'package:http/http.dart';
-import 'package:school_route/models/consts.dart';
+import 'package:school_route/utilities/consts.dart';
 
 
 
