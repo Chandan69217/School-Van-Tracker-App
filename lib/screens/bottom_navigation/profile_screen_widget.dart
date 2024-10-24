@@ -8,7 +8,6 @@ import 'package:school_route/utilities/consts.dart';
 import 'package:school_route/screens/login_screen.dart';
 import 'package:school_route/widgets/student_details_card.dart';
 import 'package:school_route/utilities/color_theme.dart';
-import 'package:school_route/widgets/custom_container.dart';
 import 'package:school_route/widgets/profile_pic_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizing/sizing.dart';

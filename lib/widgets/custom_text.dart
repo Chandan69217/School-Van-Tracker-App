@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:school_route/utilities/color_theme.dart';
 import 'package:sizing/sizing.dart';
 
 

@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:school_route/google_maps/google_map_widget.dart';
-import 'package:school_route/utilities/color_theme.dart';
 import 'package:school_route/widgets/tracker_list_title.dart';
 import 'package:sizing/sizing.dart';
 

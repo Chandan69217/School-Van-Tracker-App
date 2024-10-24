@@ -2,15 +2,10 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:school_route/intefaces/on_pressed.dart';
-import 'package:school_route/screens/login_screen.dart';
 import 'package:school_route/screens/registration_screen.dart';
 import 'package:school_route/screens/tracker_screen.dart';
 import 'package:school_route/widgets/tracking_details_listtitle.dart';
 import 'package:sizing/sizing.dart';
-
-import '../../utilities/color_theme.dart';
 
 class TrackingScreenWidget extends StatefulWidget{
   @override

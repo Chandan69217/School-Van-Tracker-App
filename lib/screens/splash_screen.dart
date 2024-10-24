@@ -21,6 +21,7 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
 
   @override
   void initState(){
+    super.initState();
     checkLoginStatus();
     controller = AnimationController(vsync: this,duration: Duration(seconds: 2));
     animation = CurvedAnimation(parent: controller, curve: Curves.fastOutSlowIn);

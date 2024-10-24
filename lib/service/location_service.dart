@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:school_route/widgets/dialog_box_widget.dart';
 
 class LocationService{
 

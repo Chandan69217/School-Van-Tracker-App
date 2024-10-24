@@ -7,6 +7,7 @@ import 'package:sizing/sizing.dart';
 
 import '../utilities/color_theme.dart';
 
+// ignore: must_be_immutable
 class TrackingDetailsListTitle extends StatelessWidget{
   
   final String title;

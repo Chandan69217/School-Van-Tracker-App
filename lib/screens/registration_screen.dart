@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:school_route/animations/slide_up_animation.dart';
 import 'package:school_route/screens/login_screen.dart';
 import 'package:school_route/utilities/color_theme.dart';
 import 'package:school_route/widgets/custom_container.dart';
@@ -18,7 +17,7 @@ class RegistrationScreen extends StatefulWidget{
 
 }
 
-class RegistrationScreenStates extends State<StatefulWidget> with SingleTickerProviderStateMixin{
+class RegistrationScreenStates extends State<StatefulWidget> with SingleTickerProviderStateMixin,WidgetsBindingObserver{
   AnimationController? controller;
   Animation<Offset>? animation;
   TextEditingController mobileController = TextEditingController();
@@ -37,6 +36,7 @@ class RegistrationScreenStates extends State<StatefulWidget> with SingleTickerPr
     controller = AnimationController(vsync: this,duration: Duration(milliseconds: 1200));
     animation = Tween<Offset>(begin:Offset(0,1.5),end: Offset.zero).animate(CurvedAnimation(parent: controller!, curve: Curves.easeIn));
     controller!.forward();
+    WidgetsBinding.instance.addObserver(this);
   }
   @override
   Widget build(BuildContext context) {
@@ -62,7 +62,7 @@ class RegistrationScreenStates extends State<StatefulWidget> with SingleTickerPr
                           CustomTextField( obscureText: false,
                           focusNode: mobileFocusNode,
                           controller: mobileController,
-                          hintText: 'Mobile No',
+                          labelText: 'Mobile No',
                           maxLength: 10,
                           prefixIcon: Icon(Icons.phone_android),
                           textInputAction: TextInputAction.next,
@@ -73,7 +73,7 @@ class RegistrationScreenStates extends State<StatefulWidget> with SingleTickerPr
                           CustomTextField(obscureText: visiblePassword,
                           focusNode: passwordFocusNode,
                           controller: passwordController,
-                          hintText: 'Password',
+                          labelText: 'Password',
                           prefixIcon: Icon(Icons.password),
                           suffixIconButton: IconButton(onPressed: (){
                             setState(() {
@@ -92,7 +92,7 @@ class RegistrationScreenStates extends State<StatefulWidget> with SingleTickerPr
                               visibleConfirmPassword = !visibleConfirmPassword;
                             });
                           }, icon: Icon(visibleConfirmPassword ? Icons.visibility_off:Icons.visibility)),
-                          hintText: 'Confirm Password',
+                          labelText: 'Confirm Password',
                           textInputAction: TextInputAction.done,
                           textInputType: TextInputType.visiblePassword,),
                           SizedBox(height: 30.ss,),
@@ -145,10 +145,23 @@ class RegistrationScreenStates extends State<StatefulWidget> with SingleTickerPr
 
 
   }
+
+  @override
+  void didChangeMetrics() {
+    super.didChangeMetrics();
+    if(MediaQuery.of(context).viewInsets.bottom != 0){
+      if(View.of(context).viewInsets.bottom == 0){
+        mobileFocusNode.unfocus();
+        passwordFocusNode.unfocus();
+        confirmPasswordFocusNode.unfocus();
+      }
+    }
+  }
   @override
   void dispose() {
     super.dispose();
     controller!.dispose();
+    WidgetsBinding.instance.removeObserver(this);
   }
 
 }

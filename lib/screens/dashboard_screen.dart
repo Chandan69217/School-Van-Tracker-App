@@ -1,17 +1,12 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:school_route/screens/bottom_navigation/home_screen_widget.dart';
 import 'package:school_route/screens/bottom_navigation/notification_screen_widget.dart';
 import 'package:school_route/screens/bottom_navigation/profile_screen_widget.dart';
 import 'package:school_route/screens/bottom_navigation/tracking_screen_widget.dart';
 import 'package:school_route/utilities/color_theme.dart';
 import 'package:school_route/widgets/bottom_navigation_icon.dart';
-import 'package:school_route/widgets/custom_text.dart';
-import 'package:school_route/widgets/driver_details_widget.dart';
-import 'package:school_route/widgets/school_details_widget.dart';
-import 'package:sizing/sizing.dart';
 
 class DashboardScreen extends StatefulWidget{
 

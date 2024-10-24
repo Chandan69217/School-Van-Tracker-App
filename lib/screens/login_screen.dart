@@ -1,19 +1,23 @@
-import 'dart:convert';
+// ignore_for_file: unused_field
 
+import 'dart:async';
+import 'dart:convert';
+import 'dart:developer';
+import 'dart:io';
+import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart';
-import 'package:school_route/animations/slide_up_animation.dart';
 import 'package:school_route/api/api.dart';
 import 'package:school_route/screens/dashboard_screen.dart';
 import 'package:school_route/screens/forgot_password_screen.dart';
 import 'package:school_route/screens/registration_screen.dart';
-import 'package:school_route/screens/splash_screen.dart';
 import 'package:school_route/utilities/color_theme.dart';
 import 'package:school_route/widgets/custom_container.dart';
 import 'package:school_route/widgets/custom_text_field.dart';
-import 'package:school_route/widgets/dialog_box_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizing/sizing.dart';
 
@@ -38,6 +42,10 @@ class _LoginScreenState extends State<LoginScreen>
   Response? response;
   FocusNode emailFocusNode = FocusNode();
   FocusNode passwordFocusNode = FocusNode();
+  final Connectivity _connectivity = Connectivity();
+  late StreamSubscription _streamSubscription;
+  List<ConnectivityResult> _connectivityStatus = [ConnectivityResult.none];
+
 
 
   @override
@@ -47,6 +55,7 @@ class _LoginScreenState extends State<LoginScreen>
     controller = AnimationController(vsync: this,duration: Duration(milliseconds: 1200));
     animation = Tween<Offset>(begin:Offset(0,1.5),end: Offset.zero).animate(CurvedAnimation(parent: controller!, curve: Curves.easeIn));
     controller!.forward();
+    _streamSubscription = _connectivity.onConnectivityChanged.listen((result){_connectivityStatus = result;});
   }
 
   @override
@@ -91,7 +100,7 @@ class _LoginScreenState extends State<LoginScreen>
                           //   FilteringTextInputFormatter.digitsOnly,
                           // ],
                           prefixIcon: Icon(Icons.email),
-                          hintText: 'Email ID',
+                          labelText: 'Email ID',
                         ),
                         SizedBox(
                           height: 30.ss,
@@ -104,7 +113,7 @@ class _LoginScreenState extends State<LoginScreen>
                           textInputType: TextInputType.visiblePassword,
                           obscureText: obscureText,
                           prefixIcon: Icon(Icons.password),
-                          hintText: 'Password',
+                          labelText: 'Password',
                           suffixIconButton: IconButton(
                               onPressed: () {
                                 setState(() {
@@ -196,7 +205,6 @@ class _LoginScreenState extends State<LoginScreen>
 
 
   void login() async {
-
     String email = emailTextFieldController.text;
     String password = passwordTextFieldController.text;
 
@@ -219,37 +227,56 @@ class _LoginScreenState extends State<LoginScreen>
     setState(() {
       isLoading = true;
     });
+    initConnectivity();
+    if(_connectivityStatus.contains(ConnectivityResult.mobile) || _connectivityStatus.contains(ConnectivityResult.wifi) || _connectivityStatus.contains(ConnectivityResult.vpn)){
 
-    try {
-      response = await getResponse('/api/login', body);
-    }catch(exception){
-      DialogBox(context: context,content: exception.toString(),onPressedOk: (context){},onPressedCancel: (context){});
+      try{
+        final result = await InternetAddress.lookup('google.com');
+        if(result.isNotEmpty && result[0].rawAddress.isNotEmpty){
+          try {
+            response = await getResponse('/api/login', body);
+          }catch(exception){
+           showToast('Internet is too slow');
+           setState(() {
+              isLoading = false;
+            });
+            return;
+          }
+
+          if(response!.statusCode == 200){
+            final prefs = await SharedPreferences.getInstance();
+            final jsonBody = jsonDecode(response!.body);
+            prefs.setBool(Consts.IS_LOGIN, true);
+            prefs.setString(Consts.USER_TOKEN,jsonBody[Consts.USER_TOKEN]);
+            Navigator.pushReplacement(context, MaterialPageRoute(
+                builder: (context) =>
+                    DashboardScreen()));
+          }else{
+            AwesomeDialog(
+              context: context,
+              dialogType: DialogType.error,
+              animType: AnimType.bottomSlide,
+              headerAnimationLoop: false,
+              title: 'Invalid Credentials',
+              desc: 'Please enter valid email & password',
+              btnOkOnPress: (){}
+            ).show();
+          }
+        }else{
+          showToast('No internet access');
+        }
+
+      } on SocketException catch(_){
+        showToast('No internet access');
+      }
+
+    }else{
+      showToast('No internet connection');
     }
 
     setState(() {
       isLoading = false;
     });
-
-    if(response!.statusCode == 200){
-      final prefs = await SharedPreferences.getInstance();
-      final jsonBody = jsonDecode(response!.body);
-      prefs.setBool(Consts.IS_LOGIN, true);
-      prefs.setString(Consts.USER_TOKEN,jsonBody[Consts.USER_TOKEN]);
-      Navigator.pushReplacement(context, MaterialPageRoute(
-          builder: (context) =>
-              DashboardScreen()));
-    }else{
-      DialogBox(context: context,
-        hide: 0,
-        onPressedOk: (BuildContext context) {
-          Navigator.pop(context);
-        },
-        onPressedCancel: (BuildContext context) {  },
-        icon: Icons.error_outline,
-        title: 'Invalid Credentials',
-        content: 'please enter valid email & password',
-      );
-    }
 
   }
 
@@ -272,5 +299,19 @@ class _LoginScreenState extends State<LoginScreen>
     controller!.dispose();
   }
 
+  Future<void> initConnectivity() async{
+    try{
+      _connectivityStatus = await _connectivity.checkConnectivity();
+    }catch(exception){
+      log(exception.toString());
+      return;
+    }
+    if(!mounted){
+      return Future.value('null');
+    }
+  }
 
+  void showToast(String message){
+    Fluttertoast.showToast(msg: message,gravity: ToastGravity.BOTTOM,backgroundColor: Colors.white,textColor: ColorTheme.gray_dark);
+  }
 }
