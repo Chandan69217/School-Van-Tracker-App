@@ -55,7 +55,7 @@ class _LoginScreenState extends State<LoginScreen>
     controller = AnimationController(vsync: this,duration: Duration(milliseconds: 1200));
     animation = Tween<Offset>(begin:Offset(0,1.5),end: Offset.zero).animate(CurvedAnimation(parent: controller!, curve: Curves.easeIn));
     controller!.forward();
-    _streamSubscription = _connectivity.onConnectivityChanged.listen((result){_connectivityStatus = result;});
+    _initConnectivity();
   }
 
   @override
@@ -208,7 +208,8 @@ class _LoginScreenState extends State<LoginScreen>
     String email = emailTextFieldController.text;
     String password = passwordTextFieldController.text;
 
-
+    // print('before trim: $email');
+    // print('after remove all: ${email.replaceAll(RegExp(r'\s+'), '')}');
     if(email.isEmpty){
       emailFocusNode.requestFocus();
       return;
@@ -227,7 +228,6 @@ class _LoginScreenState extends State<LoginScreen>
     setState(() {
       isLoading = true;
     });
-    initConnectivity();
     if(_connectivityStatus.contains(ConnectivityResult.mobile) || _connectivityStatus.contains(ConnectivityResult.wifi) || _connectivityStatus.contains(ConnectivityResult.vpn)){
 
       try{
@@ -297,11 +297,14 @@ class _LoginScreenState extends State<LoginScreen>
     super.dispose();
     WidgetsBinding.instance.removeObserver(this);
     controller!.dispose();
+    _streamSubscription.cancel();
   }
 
-  Future<void> initConnectivity() async{
+  Future<void> _initConnectivity() async{
     try{
       _connectivityStatus = await _connectivity.checkConnectivity();
+      setState((){});
+      _streamSubscription = _connectivity.onConnectivityChanged.listen((result){_connectivityStatus = result;});
     }catch(exception){
       log(exception.toString());
       return;
